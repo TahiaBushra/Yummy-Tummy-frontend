@@ -7,7 +7,7 @@ const Header = () => {
     <header className="border-b-2 border-b-pink-500 h-[82px] flex items-center">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold text-pink-500">
-          Yummy Tummy
+          Yummy😋Tummy
         </Link>
         <div className="hidden md:block">
           <DesktopNav />
