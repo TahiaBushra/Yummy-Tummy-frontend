@@ -7,7 +7,7 @@ const MobileNavLinks = () => {
 
   return (
     <div className="w-full flex flex-col gap-3">
-      <Link href="/user-profile" className="hover:text-pink-500">
+      <Link href="/user-profile" className="text-pink-500 hover:text-pink-800">
         User Profile
       </Link>
       <Button
