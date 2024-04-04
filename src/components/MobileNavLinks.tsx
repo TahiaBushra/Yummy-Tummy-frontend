@@ -10,6 +10,13 @@ const MobileNavLinks = () => {
       <Link href="/user-profile" className="text-pink-500 hover:text-pink-800">
         User Profile
       </Link>
+
+      <Link
+        href="/manage-restaurant"
+        className="text-pink-500 hover:text-pink-800"
+      >
+        Manage Reataurant
+      </Link>
       <Button
         onClick={() =>
           logout({ logoutParams: { returnTo: window.location.origin } })

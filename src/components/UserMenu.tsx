@@ -26,6 +26,9 @@ const UserMenu = () => {
           <Link href="/user-profile">User Profile</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
+          <Link href="/manage-restaurant">Manage Reataurant</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           <Button
             onClick={() =>
               logout({ logoutParams: { returnTo: window.location.origin } })
