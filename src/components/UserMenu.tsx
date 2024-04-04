@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { CircleUserRound } from "lucide-react";
+import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -7,16 +8,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import Link from "next/link";
 
 const UserMenu = () => {
   const { user, logout } = useAuth0();
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="font-bold text-pink-500 hover:text-pink-800 flex items-center gap-2">
-        <CircleUserRound />
-        {user?.email}
+      <DropdownMenuTrigger className="font-bold text-pink-500 hover:text-pink-800 flex items-center gap-3">
+        <Avatar>
+          <AvatarImage src={user?.picture} />
+          <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
+        </Avatar>
+        <span>{user?.name}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>
