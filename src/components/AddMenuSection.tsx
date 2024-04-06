@@ -37,7 +37,7 @@ const AddMenuSection = () => {
 
       <Button
         type="button"
-        className="bg-purple-900 hover:bg-pink-800"
+        className="bg-violet-900 hover:bg-pink-800"
         onClick={() => append({ name: "", price: 0 })}
       >
         Add Menu Item

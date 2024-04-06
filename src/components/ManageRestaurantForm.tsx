@@ -16,6 +16,8 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   restaurantName: z.string({ required_error: "restaurant name is required" }),
@@ -46,7 +48,7 @@ interface Props {
   isLoading: boolean;
 }
 
-const ManageRestaurantForm = () => {
+const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
   const form = useForm<RestaurantFormDataType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -222,6 +224,18 @@ const ManageRestaurantForm = () => {
             />
           </div>
         </div>
+
+        {/* Submitt Button */}
+        <Button className="bg-pink-500" size="lg" disabled={isLoading}>
+          {isLoading ? (
+            <span className="flex items-center gap-2">
+              <Loader2 size={18} className="animate-spin" />
+              Submitting
+            </span>
+          ) : (
+            <span>Submit</span>
+          )}
+        </Button>
       </form>
     </Form>
   );
