@@ -46,9 +46,10 @@ export type RestaurantFormDataType = z.infer<typeof formSchema>;
 interface Props {
   onSave: (restaurantFormData: FormData) => void;
   isLoading: boolean;
+  restaurant?: Restaurant;
 }
 
-const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
+const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
   const form = useForm<RestaurantFormDataType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
