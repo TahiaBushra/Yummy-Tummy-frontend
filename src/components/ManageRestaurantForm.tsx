@@ -23,27 +23,33 @@ import { Restaurant } from "@/types";
 import { AspectRatio } from "./ui/aspect-ratio";
 import Image from "next/image";
 
-const formSchema = z.object({
-  restaurantName: z.string({ required_error: "restaurant name is required" }),
-  country: z.string({ required_error: "country is required" }),
-  city: z.string({ required_error: "city is required" }),
-  deliveryPrice: z.coerce.number({
-    required_error: "delivery price is required",
-  }),
-  estimatedDeliveryTime: z.coerce.number({
-    required_error: "estimated delivery time is required",
-  }),
-  cuisines: z
-    .array(z.string())
-    .nonempty({ message: "please select at least one item" }),
-  menuItems: z.array(
-    z.object({
-      name: z.string().min(1, "name is required"),
-      price: z.coerce.number().min(1, "price is required"),
-    })
-  ),
-  imageFile: z.instanceof(File, { message: "image is required" }),
-});
+const formSchema = z
+  .object({
+    restaurantName: z.string({ required_error: "restaurant name is required" }),
+    country: z.string({ required_error: "country is required" }),
+    city: z.string({ required_error: "city is required" }),
+    deliveryPrice: z.coerce.number({
+      required_error: "delivery price is required",
+    }),
+    estimatedDeliveryTime: z.coerce.number({
+      required_error: "estimated delivery time is required",
+    }),
+    cuisines: z
+      .array(z.string())
+      .nonempty({ message: "please select at least one item" }),
+    menuItems: z.array(
+      z.object({
+        name: z.string().min(1, "name is required"),
+        price: z.coerce.number().min(1, "price is required"),
+      })
+    ),
+    imageUrl: z.string().optional(),
+    imageFile: z.instanceof(File, { message: "image is required" }).optional(),
+  })
+  .refine((data) => data.imageFile || data.imageUrl, {
+    message: "Either image file or image url must be provided",
+    path: ["imageFile"],
+  });
 
 export type RestaurantFormDataType = z.infer<typeof formSchema>;
 
