@@ -2,7 +2,8 @@
 
 import Error from "@/components/Error";
 import Loading from "@/components/Loading";
-import SearchBar from "@/components/SearchBar";
+import PaginationSelector from "@/components/PaginationSelector";
+import SearchBar, { SearchForm } from "@/components/SearchBar";
 import SearchResultCard from "@/components/SearchResultCard";
 import SearchResultInfo from "@/components/SearchResultInfo";
 import { useRestaurantPublic } from "@/hooks/useRestaurantPublic";
@@ -23,6 +24,13 @@ const SearchPage = ({ params }: { params: { city: string } }) => {
     sortOption: "bestMatch",
   });
   const { results, isLoading } = useRestaurantPublic(searchState, params.city);
+
+  const setPage = (page: number) => {
+    setSearchState((prev) => ({
+      ...prev,
+      page,
+    }));
+  };
 
   const handleSearchQuery = (searchFormData: SearchForm) => {
     setSearchState((prev) => ({
@@ -62,6 +70,11 @@ const SearchPage = ({ params }: { params: { city: string } }) => {
         {results.data.map((restaurant) => (
           <SearchResultCard key={restaurant._id} restaurant={restaurant} />
         ))}
+        <PaginationSelector
+          page={results.pagination.page}
+          pages={results.pagination.pages}
+          onPageChange={setPage}
+        />
       </div>
     </div>
   );
