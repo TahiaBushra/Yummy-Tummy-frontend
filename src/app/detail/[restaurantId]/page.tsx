@@ -3,17 +3,133 @@
 import Error from "@/components/Error";
 import Loading from "@/components/Loading";
 import MenuItem from "@/components/MenuItem";
+import OrderSummery from "@/components/OrderSummery";
 import RestaurantInfo from "@/components/RestaurantInfo";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Card, CardFooter } from "@/components/ui/card";
 import { useGetPublicRestaurant } from "@/hooks/useGetPublicRestaurant";
+import { MenuItem as TMenuItem } from "@/types";
 import Image from "next/image";
+import { useState } from "react";
+
+export interface CartItem {
+  _id: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
 
 const RestaurantDetailPage = ({
   params,
 }: {
   params: { restaurantId: string };
 }) => {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  const addToCart = (menuItem: TMenuItem) => {
+    setCartItems((prevItems) => {
+      const existingCartItem = prevItems.find(
+        (item) => item._id === menuItem._id
+      );
+
+      let updatedCartItems;
+
+      if (existingCartItem) {
+        updatedCartItems = prevItems.map((item) =>
+          item._id === menuItem._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        updatedCartItems = [
+          ...prevItems,
+          {
+            _id: menuItem._id,
+            name: menuItem.name,
+            price: menuItem.price,
+            quantity: 1,
+          },
+        ];
+      }
+
+      sessionStorage.setItem(
+        `cartItems-${params.restaurantId}`,
+        JSON.stringify(updatedCartItems)
+      );
+
+      return updatedCartItems;
+    });
+  };
+
+  const removeFromCart = (cartItem: CartItem) => {
+    setCartItems((prevItems) => {
+      const updatedCartItems = prevItems.filter(
+        (item) => item._id !== cartItem._id
+      );
+
+      sessionStorage.setItem(
+        `cartItems-${params.restaurantId}`,
+        JSON.stringify(updatedCartItems)
+      );
+
+      return updatedCartItems;
+    });
+  };
+
+  const handleQuantityDecrease = (cartItem: CartItem) => {
+    setCartItems((prevItems) => {
+      const existingCartItem = prevItems.find(
+        (item) => item._id === cartItem._id
+      );
+
+      let updatedCartItems;
+
+      if (existingCartItem && existingCartItem.quantity > 1) {
+        updatedCartItems = prevItems.map((item) =>
+          item._id === cartItem._id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        );
+      } else {
+        updatedCartItems = prevItems.filter(
+          (item) => item._id !== cartItem._id
+        );
+      }
+
+      sessionStorage.setItem(
+        `cartItems-${params.restaurantId}`,
+        JSON.stringify(updatedCartItems)
+      );
+
+      return updatedCartItems;
+    });
+  };
+
+  const handleQuantityIncrease = (cartItem: CartItem) => {
+    setCartItems((prevItems) => {
+      const existingCartItem = prevItems.find(
+        (item) => item._id === cartItem._id
+      );
+
+      if (existingCartItem) {
+        const updatedCartItems = prevItems.map((item) =>
+          item._id === cartItem._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+
+        sessionStorage.setItem(
+          `cartItems-${params.restaurantId}`,
+          JSON.stringify(updatedCartItems)
+        );
+
+        return updatedCartItems;
+      } else {
+        return [];
+      }
+    });
+  };
+
   const { isLoading, restaurant } = useGetPublicRestaurant(params.restaurantId);
   if (isLoading) {
     return <Loading />;
@@ -35,9 +151,27 @@ const RestaurantDetailPage = ({
       </AspectRatio>
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-[4fr_2fr] gap-5">
         <div className="flex flex-col gap-5"></div>
+        <RestaurantInfo restaurant={restaurant} />
+        <h6 className="font-bold text-2xl">Menu</h6>
+        {restaurant.menuItems.map((item, index) => (
+          <MenuItem
+            key={index + item.name}
+            item={item}
+            addToCart={() => addToCart(item)}
+          />
+        ))}
 
         <div>
-          <Card></Card>
+          <Card>
+            <OrderSummery
+              restaurant={restaurant}
+              cartItems={cartItems}
+              removeFromCart={removeFromCart}
+              handleQuantityDecrease={handleQuantityDecrease}
+              handleQuantityIncrease={handleQuantityIncrease}
+            />
+            <CardFooter></CardFooter>
+          </Card>
         </div>
       </div>
     </div>

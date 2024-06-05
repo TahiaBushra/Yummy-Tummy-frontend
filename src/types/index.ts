@@ -22,7 +22,7 @@ export type Restaurant = {
   deliveryPrice: number;
   estimatedDeliveryTime: number;
   cuisines: string[];
-  menuItems: { name: string; price: number }[];
+  menuItems: MenuItem[];
   imageUrl: string;
 };
 
