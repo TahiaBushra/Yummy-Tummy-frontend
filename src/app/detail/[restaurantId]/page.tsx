@@ -1,10 +1,12 @@
 "use client";
 
+import CheckoutButton from "@/components/CheckoutButton";
 import Error from "@/components/Error";
 import Loading from "@/components/Loading";
 import MenuItem from "@/components/MenuItem";
 import OrderSummery from "@/components/OrderSummery";
 import RestaurantInfo from "@/components/RestaurantInfo";
+import { UserFormDataType } from "@/components/UserProfileForm";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Card, CardFooter } from "@/components/ui/card";
 import { useGetPublicRestaurant } from "@/hooks/useGetPublicRestaurant";
@@ -24,7 +26,13 @@ const RestaurantDetailPage = ({
 }: {
   params: { restaurantId: string };
 }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    const storedCartItems = sessionStorage.getItem(
+      `cartItems-${params.restaurantId}`
+    );
+
+    return storedCartItems ? JSON.parse(storedCartItems) : [];
+  });
 
   const addToCart = (menuItem: TMenuItem) => {
     setCartItems((prevItems) => {
@@ -130,6 +138,8 @@ const RestaurantDetailPage = ({
     });
   };
 
+  const handleCheckout = async (userFormData: UserFormDataType) => {};
+
   const { isLoading, restaurant } = useGetPublicRestaurant(params.restaurantId);
   if (isLoading) {
     return <Loading />;
@@ -170,7 +180,13 @@ const RestaurantDetailPage = ({
               handleQuantityDecrease={handleQuantityDecrease}
               handleQuantityIncrease={handleQuantityIncrease}
             />
-            <CardFooter></CardFooter>
+            <CardFooter>
+              <CheckoutButton
+                disabled={cartItems.length === 0}
+                onCheckout={handleCheckout}
+                isLoading={false}
+              />
+            </CardFooter>
           </Card>
         </div>
       </div>

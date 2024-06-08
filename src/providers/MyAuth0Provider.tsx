@@ -16,8 +16,8 @@ const MyAuth0Provider = ({ children }: PropsWithChildren) => {
     throw new Error("Unable to initialize auth0");
   }
 
-  const onRedirectCallback = (appState?: AppState, user?: User) => {
-    router.push("/auth-callback");
+  const onRedirectCallback = (appState?: AppState) => {
+    router.push(appState?.returnTo || "/auth-callback");
   };
 
   return (
