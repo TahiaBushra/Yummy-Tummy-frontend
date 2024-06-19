@@ -8,10 +8,21 @@ const Footer = () => {
           Yummy😋Tummy
         </Link>
         <div className="flex items-center gap-5">
-          <Link href="/">Privacy</Link>
-          <Link href="/">About</Link>
-          <Link href="/">Contact</Link>
+          <Link href="/" className="text-xl font-bold">
+            Privacy
+          </Link>
+          <Link href="/" className="text-xl font-bold">
+            About
+          </Link>
+          <Link href="/" className="text-xl font-bold">
+            Contact
+          </Link>
         </div>
+      </div>
+      <div className="text-center mt-8">
+        <p className="text-md font-bold">
+          Designed with ❤️ by Yummy😋Tummy team
+        </p>
       </div>
     </footer>
   );

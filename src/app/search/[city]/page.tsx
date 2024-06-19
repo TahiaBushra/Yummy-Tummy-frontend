@@ -30,18 +30,18 @@ const SearchPage = ({ params }: { params: { city: string } }) => {
 
   const { results, isLoading } = useRestaurantPublic(searchState, params.city);
 
-  const setSelectedCuisines = (selectedCuisines: string[]) => {
-    setSearchState((prev) => ({
-      ...prev,
-      selectedCuisines,
-      page: 1,
-    }));
-  };
-
   const setSortOption = (sortOption: string) => {
     setSearchState((prev) => ({
       ...prev,
       sortOption,
+      page: 1,
+    }));
+  };
+
+  const setSelectedCuisines = (selectedCuisines: string[]) => {
+    setSearchState((prev) => ({
+      ...prev,
+      selectedCuisines,
       page: 1,
     }));
   };
@@ -117,4 +117,5 @@ const SearchPage = ({ params }: { params: { city: string } }) => {
     </div>
   );
 };
+
 export default SearchPage;

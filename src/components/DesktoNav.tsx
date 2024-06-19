@@ -15,7 +15,7 @@ const DesktopNav = () => {
         <Button
           onClick={async () => loginWithRedirect()}
           variant="ghost"
-          className="font-bold text-pink-500 hover:text-pink-800 hover:bg-white"
+          className="font-bold text-md text-pink-500 hover:text-pink-800 hover:bg-white"
         >
           Log In
         </Button>
