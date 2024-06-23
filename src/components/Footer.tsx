@@ -8,13 +8,13 @@ const Footer = () => {
           Yummy😋Tummy
         </Link>
         <div className="flex items-center gap-5">
-          <Link href="/" className="text-xl font-bold">
+          <Link href="/privacy" className="text-xl font-bold">
             Privacy
           </Link>
-          <Link href="/" className="text-xl font-bold">
+          <Link href="/about" className="text-xl font-bold">
             About
           </Link>
-          <Link href="/" className="text-xl font-bold">
+          <Link href="/concact" className="text-xl font-bold">
             Contact
           </Link>
         </div>

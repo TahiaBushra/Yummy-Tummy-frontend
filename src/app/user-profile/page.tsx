@@ -1,5 +1,6 @@
 "use client";
 
+import About from "@/components/ui/about";
 import Error from "@/components/Error";
 import Loading from "@/components/Loading";
 import UserProfileForm from "@/components/UserProfileForm";

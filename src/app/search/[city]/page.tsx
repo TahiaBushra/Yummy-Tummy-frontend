@@ -1,4 +1,4 @@
-"use state";
+"use client";
 
 import CuisineFilter from "@/components/CuisineFilter";
 import Error from "@/components/Error";
