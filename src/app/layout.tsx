@@ -5,6 +5,9 @@ import "./globals.css";
 import MyAuth0Provider from "@/providers/MyAuth0Provider";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { Toaster } from "@/components/ui/sonner";
+import Privacy from "@/components/Privacy";
+import About from "@/components/About";
+import Contact from "@/components/Contact";
 
 const rubik = Rubik({ subsets: ["latin"] });
 
@@ -24,6 +27,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
               <Header />
               <div className="flex-1">{children}</div>
             </main>
+            <Privacy />
+            <About />
+            <Contact />
             <Footer />
           </body>
         </html>
