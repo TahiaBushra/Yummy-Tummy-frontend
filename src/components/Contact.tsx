@@ -15,12 +15,9 @@ const Contact = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="flex flex-col items-center text-center p-6 rounded-lg">
             <h2 className="text-2xl font-bold text-gray-800 mb-2">Email Us</h2>
-            <a
-              href="mailto:contact@yummytummy.com"
-              className="text-pink-500 text-lg font-bold hover:underline"
-            >
+            <div className="text-pink-500 text-lg font-bold hover:underline">
               contact@yummytummy.com
-            </a>
+            </div>
           </div>
           <div className="flex flex-col items-center text-center p-6 rounded-lg">
             <h2 className="text-2xl font-bold text-gray-800 mb-2">Call Us</h2>

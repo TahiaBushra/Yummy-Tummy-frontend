@@ -1,8 +1,8 @@
 import About from "@/components/About";
+import Contact from "@/components/Contact";
 import GetStarted from "@/components/GetStarted";
 import Hero from "@/components/Hero";
 import Privacy from "@/components/Privacy";
-import { Contact } from "lucide-react";
 
 const HomePage = () => {
   return (
